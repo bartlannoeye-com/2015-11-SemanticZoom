@@ -19,6 +19,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+# Visual Studio 2015 cache/options directory
+.vs/
+
 # Roslyn cache directories
 *.ide/
 
@@ -131,8 +134,12 @@ publish/
 *.pubxml
 *.publishproj
 
-# NuGet Packages
-*.nupkg
+# NuGet
+.nuget/
+*.nuget.props
+*.nuget.targets
+*.lock.json
+
 # The packages folder can be ignored because of Package Restore
 **/packages/*
 # except build/, which is used as an MSBuild target.
@@ -229,3 +236,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Allow demo temporary keys
+!*_TemporaryKey.pfx
