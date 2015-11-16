@@ -35,16 +35,13 @@
             </SemanticZoom.ZoomedOutView>
             <SemanticZoom.ZoomedInView>
                 <!-- Horizontal scrolling to be like 8.1 for demo purposes -->
-                <GridView ItemsSource="{Binding Source={StaticResource Collection}}"
-                          ItemTemplate="{StaticResource MyItemTemplate}"
-                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                          ScrollViewer.HorizontalScrollMode="Auto"
-                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                          ScrollViewer.VerticalScrollMode="Disabled">
+                <GridView x:Name="ZoomedInGridView"
+                          ItemsSource="{Binding Source={StaticResource Collection}}"
+                          ItemTemplate="{StaticResource MyItemTemplate}">
 
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <ItemsWrapGrid Orientation="Vertical" />
+                            <ItemsWrapGrid x:Name="WrapGrid" />
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
 
@@ -62,5 +59,35 @@
                 </GridView>
             </SemanticZoom.ZoomedInView>
         </SemanticZoom>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualStateMin320">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="WrapGrid.Orientation" Value="Horizontal" />
+                        <Setter Target="ZoomedInGridView.(ScrollViewer.HorizontalScrollBarVisibility)" Value="Disabled" />
+                        <Setter Target="ZoomedInGridView.(ScrollViewer.HorizontalScrollMode)" Value="Disabled" />
+                        <Setter Target="ZoomedInGridView.(ScrollViewer.VerticalScrollBarVisibility)" Value="Auto" />
+                        <Setter Target="ZoomedInGridView.(ScrollViewer.VerticalScrollMode)" Value="Auto" />
+                    </VisualState.Setters>
+                </VisualState>
+                
+                <VisualState x:Name="VisualStateMin1024">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="WrapGrid.Orientation" Value="Vertical" />
+                        <Setter Target="ZoomedInGridView.(ScrollViewer.HorizontalScrollBarVisibility)" Value="Auto" />
+                        <Setter Target="ZoomedInGridView.(ScrollViewer.HorizontalScrollMode)" Value="Auto" />
+                        <Setter Target="ZoomedInGridView.(ScrollViewer.VerticalScrollBarVisibility)" Value="Disabled" />
+                        <Setter Target="ZoomedInGridView.(ScrollViewer.VerticalScrollMode)" Value="Disabled" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
